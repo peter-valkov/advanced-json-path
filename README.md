@@ -150,13 +150,16 @@ JSONPath(object, "$..Status");
 ```
 
 ```javascript
+// Index
 JSONPath(object, "$..Devices[0]");
+
+// Result
+{
+	"Type": "UART",
+	"URL": "/mod-rfid",
+	"Found": 0
+}
 ```
-	{
-	    "Type": "UART",
-	    "URL": "/mod-rfid",
-	    "Found": 0
-	}
 
 ```javascript
 JSONPath(object, "$..Devices[?(@.Found == 1)]");
