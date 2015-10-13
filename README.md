@@ -56,6 +56,7 @@ var object = {
 		"Device": "ESP8266",
 		"Status": "OK",
 		"Data": {
+			"Selected": 3,
 			"Devices": [
 				{
 					"Type": "UART",
@@ -156,6 +157,16 @@ JSONPath(object, "$..Devices[0]");
 	"Found": 0
 }
 
+// Nested JSONPath expression as index
+JSONPath(object, "$..Devices[{$.EventData..Selected}]");
+
+// Result
+{
+	"Type": "NATIVE",
+	"URL": "/button",
+	"Found": 1
+}
+
 // Slice
 JSONPath(object, "$..Devices[1:3]");
 
@@ -232,7 +243,7 @@ JSONPath(object, "$..Devices[?(@.Found == 1)]");
 	}
 ]
 
-// Filter using nested JSONPath expression
+// Filter using current object and nested JSONPath expression
 JSONPath(object, "$..Devices[?({$.EventData.Status} == 'OK' && @.Type == 'SPI')]");
 
 // Result
