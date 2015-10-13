@@ -40,17 +40,17 @@ Expression | Meaning
 **.** | Child
 **..** | Recursive children descent
 * | Any object/property
-**[]** | index or quoted child name
+**[ ]** | index or quoted child name
 **[start : end]** | slice operator
-**()** | script expression
-**?()** | filter expression
-**{}** | nested JSONPath expression
+**( )** | script expression
+**?( )** | filter expression
+**{ }** | nested JSONPath expression
 
 
 ## Examples
 Object in JSON notation used in examples:
 ```javascript
-{
+var object = {
 	"EventURL": "/devices",
 	"EventData": {
 		"Device": "ESP8266",
@@ -133,17 +133,24 @@ Object in JSON notation used in examples:
 ```
 
 ```javascript
-$.EventURL
+// Dotted or bracket notation
+JSONPath(object, "$.EventData.Device");
+JSONPath(object, "$['EventData']['Device']");
+
+// Result
+"ESP8266"
 ```
-	"/devices"	
 
 ```javascript
-$..Status
+// Recursive children descent
+JSONPath(object, "$..Status");
+
+// Result
+"OK"
 ```
-	"OK"
 
 ```javascript
-$..Devices[0]
+JSONPath(object, "$..Devices[0]");
 ```
 	{
 	    "Type": "UART",
@@ -152,7 +159,7 @@ $..Devices[0]
 	}
 
 ```javascript
-$..Devices[?(@.Found == 1)]
+JSONPath(object, "$..Devices[?(@.Found == 1)]");
 ```
 	[
 		{
@@ -210,7 +217,7 @@ $..Devices[?(@.Found == 1)]
 	]
 
 ```javascript
-$..Devices[?({$.EventData.Status} == 'OK' && @.Type == 'SPI')]
+JSONPath(object, "$..Devices[?({$.EventData.Status} == 'OK' && @.Type == 'SPI')]");
 ```
 	{
 		"Type": "SPI",
