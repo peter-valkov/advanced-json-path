@@ -139,17 +139,13 @@ JSONPath(object, "$['EventData']['Device']");
 
 // Result
 "ESP8266"
-```
 
-```javascript
 // Recursive children descent
 JSONPath(object, "$..Status");
 
 // Result
 "OK"
-```
 
-```javascript
 // Index
 JSONPath(object, "$..Devices[0]");
 
@@ -159,72 +155,90 @@ JSONPath(object, "$..Devices[0]");
 	"URL": "/mod-rfid",
 	"Found": 0
 }
-```
 
-```javascript
+// Slice
+JSONPath(object, "$..Devices[1:3]");
+
+// Result
+[
+	{
+		"Type": "UART",
+		"URL": "/mod-finger",
+		"Found": 1
+	},
+	{
+		"Type": "UART",
+		"URL": "/mod-emtr",
+		"Found": 0
+	}
+]
+
+// Filter expression
 JSONPath(object, "$..Devices[?(@.Found == 1)]");
-```
-	[
-		{
-			"Type": "UART",
-			"URL": "/mod-finger",
-			"Found": 1
-		},
-		{
-			"Type": "NATIVE",
-			"URL": "/button",
-			"Found": 1
-		},
-		{
-			"Type": "NATIVE",
-			"URL": "/relay",
-			"Found": 1
-		},
-		{
-			"Type": "NATIVE",
-			"URL": "/adc",
-			"Found": 1
-		},
-		{
-			"Type": "I2C",
-			"URL": "/mod-tc-mk2",
-			"Found": 1,
-			"ID": "0x27",
-			"Addresses": [
-				"0x23"
-			]
-		},
-		{
-			"Type": "I2C",
-			"URL": "/mod-io2",
-			"Found": 1,
-			"ID": "0x23",
-			"Addresses": [
-				"0x21"
-			]
-		},
-		{
-			"Type": "I2C",
-			"URL": "/mod-irda",
-			"Found": 1,
-			"ID": "0x54",
-			"Addresses": [
-				"0x24"
-			]
-		},
-		{
-			"Type": "SPI",
-			"URL": "/mod-led-8x8-rgb",
-			"Found": 1
-		}
-	]
 
-```javascript
-JSONPath(object, "$..Devices[?({$.EventData.Status} == 'OK' && @.Type == 'SPI')]");
-```
+// Result
+[
+	{
+		"Type": "UART",
+		"URL": "/mod-finger",
+		"Found": 1
+	},
+	{
+		"Type": "NATIVE",
+		"URL": "/button",
+		"Found": 1
+	},
+	{
+		"Type": "NATIVE",
+		"URL": "/relay",
+		"Found": 1
+	},
+	{
+		"Type": "NATIVE",
+		"URL": "/adc",
+		"Found": 1
+	},
+	{
+		"Type": "I2C",
+		"URL": "/mod-tc-mk2",
+		"Found": 1,
+		"ID": "0x27",
+		"Addresses": [
+			"0x23"
+		]
+	},
+	{
+		"Type": "I2C",
+		"URL": "/mod-io2",
+		"Found": 1,
+		"ID": "0x23",
+		"Addresses": [
+			"0x21"
+		]
+	},
+	{
+		"Type": "I2C",
+		"URL": "/mod-irda",
+		"Found": 1,
+		"ID": "0x54",
+		"Addresses": [
+			"0x24"
+		]
+	},
 	{
 		"Type": "SPI",
 		"URL": "/mod-led-8x8-rgb",
 		"Found": 1
 	}
+]
 
+// Filter using nested JSONPath expression
+JSONPath(object, "$..Devices[?({$.EventData.Status} == 'OK' && @.Type == 'SPI')]");
+
+// Result
+{
+	"Type": "SPI",
+	"URL": "/mod-led-8x8-rgb",
+	"Found": 1
+}
+```
