@@ -33,7 +33,19 @@ console.log(result); // 23.75
 
 ## JSONPath Expressions Basics
 
-TODO
+Expression | Meaning
+-----------|--------
+**$** | Root Object
+**@** | Current Object
+**.** | Child
+**..** | Recursive children descent
+* | Any object/property
+**[]** | index or quoted child name
+**[start : end]** | slice operator
+**()** | script expression
+**?()** | filter expression
+**{}** | nested JSONPath expression
+
 
 ## Examples
 Object in JSON notation used in examples:
