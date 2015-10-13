@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>JSONPath Test</title>
+	<script src="jquery-1.11.3.min.js"></script>
+	<script src="../lib/advanced-json-path.js"></script>
+	<script>
+		var INPUT_TIMEOUT = 750;
+		(function ($) {
+			$(document).ready(
+				function () {
+					$('.json').format();
+					$('.source').source();
+				}
+			);
+		})(jQuery);
+		
+		(function ($) {
+			$.fn.format = function () {
+				return this.each(
+					function (i, e) {
+						var $this = $(e);
+						var timeout;
+						
+						$this.bind(
+							'input',
+							function () {
+								if (typeof timeout != 'undefined') {
+									clearTimeout(timeout);
+								}
+								
+								timeout = setTimeout(
+									function () {
+										try {
+											$this.css('border-color', '');
+											if ($this.val().trim()=='') {
+												return;
+											}
+											$this.val(
+												JSON.stringify(
+													JSON.parse($this.val()),
+													null,
+													4
+												)
+											);
+										} catch (error) {
+											$this.css('border-color', 'red');
+											console.log(error.message);
+										}
+									},
+									INPUT_TIMEOUT
+								);
+							}
+						);
+					}
+				);
+			}
+		})(jQuery);
+		
+		(function ($) {
+			$.fn.source = function () {
+				return this.each(
+					function (i, e) {
+						var $this = $(e);
+						var timeout;
+						
+						var $json   = $('#json');
+						var $path   = $('#json-path');
+						var $result = $('#result');
+						
+						$this.bind(
+							'input',
+							function () {
+								if (typeof timeout != 'undefined') {
+									clearTimeout(timeout);
+								}
+								
+								timeout = setTimeout(
+									function () {
+										try {
+											$result.css('border-color', '');
+											$result.val(
+												JSON.stringify(
+													JSONPath(
+														JSON.parse($json.val()),
+														$path.val()
+													),
+													null,
+													4
+												)
+											);
+										} catch (error) {
+											$result.css('border-color', 'red');
+											$result.val(error.message);
+										}
+									},
+									INPUT_TIMEOUT
+								);
+							}
+						);
+					}
+				);
+			}
+		})(jQuery);
+	</script>
+	
+	<style>
+		* {
+			box-sizing: border-box;
+			-moz-box-sizing: border-box;
+		}
+		
+		body {
+			font: 14px Arial, sans-serif;
+			line-height: 30px;
+			white-space: nowrap;
+		}
+		
+		div {
+			display: inline-block;
+			margin: 10px;
+		}
+		
+		label {
+			display: block;
+		}
+		
+		textarea {
+			width: 600px;
+			height: 300px;
+		}
+		
+		textarea#result {
+			width: 1220px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<label for="json">Object</label>
+		<textarea id="json" class="json source"></textarea>
+	</div>
+	<div>
+		<label for="json-path">JSONPath Expression</label>
+		<textarea id="json-path" class="source"></textarea>
+	</div>
+	<br/>
+	<div>
+		<label for="result">Result</label>
+		<textarea id="result" class="json" disabled="disabled"></textarea>
+	</div>
+</body>
+</html>

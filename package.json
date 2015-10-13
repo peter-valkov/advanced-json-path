@@ -11,7 +11,7 @@
 		"name": "Peter Valkov",
 		"email": "peter@ms-consult.net"
 	},
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/peter-valkov/advanced-json-path"
