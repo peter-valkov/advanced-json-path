@@ -50,97 +50,171 @@ Expression | Meaning
 ## Examples
 Object in JSON notation used in examples:
 ```javascript
-	{
-		"EventURL": "/devices",
-		"EventData": {
-			"Device": "ESP8266",
-			"Status": "OK",
-			"Data": {
-				"Devices": [
-					{
-						"Type": "UART",
-						"URL": "/mod-rfid",
-						"Found": 0
-					},
-					{
-						"Type": "UART",
-						"URL": "/mod-finger",
-						"Found": 1
-					},
-					{
-						"Type": "UART",
-						"URL": "/mod-emtr",
-						"Found": 0
-					},
-					{
-						"Type": "NATIVE",
-						"URL": "/button",
-						"Found": 1
-					},
-					{
-						"Type": "NATIVE",
-						"URL": "/relay",
-						"Found": 1
-					},
-					{
-						"Type": "NATIVE",
-						"URL": "/adc",
-						"Found": 1
-					},
-					{
-						"Type": "I2C",
-						"URL": "/mod-rgb",
-						"Found": 0,
-						"ID": "0x64",
-						"Addresses": []
-					},
-					{
-						"Type": "I2C",
-						"URL": "/mod-tc-mk2",
-						"Found": 1,
-						"ID": "0x27",
-						"Addresses": [
-							"0x23"
-						]
-					},
-					{
-						"Type": "I2C",
-						"URL": "/mod-io2",
-						"Found": 1,
-						"ID": "0x23",
-						"Addresses": [
-							"0x21"
-						]
-					},
-					{
-						"Type": "I2C",
-						"URL": "/mod-irda",
-						"Found": 1,
-						"ID": "0x54",
-						"Addresses": [
-							"0x24"
-						]
-					},
-					{
-						"Type": "SPI",
-						"URL": "/mod-led-8x8-rgb",
-						"Found": 1
-					}
-				]
-			}
+{
+	"EventURL": "/devices",
+	"EventData": {
+		"Device": "ESP8266",
+		"Status": "OK",
+		"Data": {
+			"Devices": [
+				{
+					"Type": "UART",
+					"URL": "/mod-rfid",
+					"Found": 0
+				},
+				{
+					"Type": "UART",
+					"URL": "/mod-finger",
+					"Found": 1
+				},
+				{
+					"Type": "UART",
+					"URL": "/mod-emtr",
+					"Found": 0
+				},
+				{
+					"Type": "NATIVE",
+					"URL": "/button",
+					"Found": 1
+				},
+				{
+					"Type": "NATIVE",
+					"URL": "/relay",
+					"Found": 1
+				},
+				{
+					"Type": "NATIVE",
+					"URL": "/adc",
+					"Found": 1
+				},
+				{
+					"Type": "I2C",
+					"URL": "/mod-rgb",
+					"Found": 0,
+					"ID": "0x64",
+					"Addresses": []
+				},
+				{
+					"Type": "I2C",
+					"URL": "/mod-tc-mk2",
+					"Found": 1,
+					"ID": "0x27",
+					"Addresses": [
+						"0x23"
+					]
+				},
+				{
+					"Type": "I2C",
+					"URL": "/mod-io2",
+					"Found": 1,
+					"ID": "0x23",
+					"Addresses": [
+						"0x21"
+					]
+				},
+				{
+					"Type": "I2C",
+					"URL": "/mod-irda",
+					"Found": 1,
+					"ID": "0x54",
+					"Addresses": [
+						"0x24"
+					]
+				},
+				{
+					"Type": "SPI",
+					"URL": "/mod-led-8x8-rgb",
+					"Found": 1
+				}
+			]
 		}
 	}
+}
 ```
 
-	$.EventURL
+```javascript
+$.EventURL
+```
+	"/devices"	
 
-	$..Status
+```javascript
+$..Status
+```
+	"OK"
 
-	$..Devices[0]
+```javascript
+$..Devices[0]
+```
+	{
+	    "Type": "UART",
+	    "URL": "/mod-rfid",
+	    "Found": 0
+	}
 
-	$..Devices[?(@.Found == 1)]
+```javascript
+$..Devices[?(@.Found == 1)]
+```
+	[
+		{
+			"Type": "UART",
+			"URL": "/mod-finger",
+			"Found": 1
+		},
+		{
+			"Type": "NATIVE",
+			"URL": "/button",
+			"Found": 1
+		},
+		{
+			"Type": "NATIVE",
+			"URL": "/relay",
+			"Found": 1
+		},
+		{
+			"Type": "NATIVE",
+			"URL": "/adc",
+			"Found": 1
+		},
+		{
+			"Type": "I2C",
+			"URL": "/mod-tc-mk2",
+			"Found": 1,
+			"ID": "0x27",
+			"Addresses": [
+				"0x23"
+			]
+		},
+		{
+			"Type": "I2C",
+			"URL": "/mod-io2",
+			"Found": 1,
+			"ID": "0x23",
+			"Addresses": [
+				"0x21"
+			]
+		},
+		{
+			"Type": "I2C",
+			"URL": "/mod-irda",
+			"Found": 1,
+			"ID": "0x54",
+			"Addresses": [
+				"0x24"
+			]
+		},
+		{
+			"Type": "SPI",
+			"URL": "/mod-led-8x8-rgb",
+			"Found": 1
+		}
+	]
 
-	$..Devices[?({Type} == 'SPI')]
-
-	$..Devices[?({$.EventData.Status} == 'OK' && @.Type == 'SPI')]
+```javascript
+$..Devices[?({$.EventData.Status} == 'OK' && @.Type == 'SPI')]
+```
+	{
+		"Type": "SPI",
+		"URL": "/mod-led-8x8-rgb",
+		"Found": 1
+	}
 
