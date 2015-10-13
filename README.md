@@ -32,6 +32,40 @@ console.log(result); // 23.75
 ```
 
 ## JSONPath Expressions Basics
+as described at http://goessner.net/articles/JsonPath/
+
+JSONPath expressions always refer to a JSON structure in the same way as XPath expression are used in combination with an XML document. Since a JSON structure is usually anonymous and doesn't necessarily have a "root member object" JSONPath assumes the abstract name $ assigned to the outer level object.
+
+JSONPath expressions can use the dot–notation
+```javascript 
+$.EventData.Data.Devices[0].Type
+```
+
+or the bracket–notation
+```javascript
+$['EventData']['Data']['Devices'][0]['Type']
+```
+
+for input path.
+
+JSONPath allows the wildcard symbol * for member names and array indices. It borrows the descendant operator '..' from E4X and the array slice syntax proposal [start:end].
+
+Expressions of the underlying scripting language (< expression >) can be used as an alternative to explicit names or indices as in
+```javascript
+$..Devices[(@.length-1)]
+```
+
+using the symbol '@' for the current object. Filter expressions are supported via the syntax ?(< boolean expression >) as in
+```javascript
+$..Devices[?(@.Found==1)]
+```
+
+Nested JSONPath expressions can be used with {< expression >}
+```javascript
+$..Devices[{$.EventData..Selected}]
+```
+
+Here is a complete overview of the JSONPath syntax elements.
 
 Expression | Meaning
 -----------|--------
@@ -155,6 +189,16 @@ JSONPath(object, "$..Devices[0]");
 	"Type": "UART",
 	"URL": "/mod-rfid",
 	"Found": 0
+}
+
+// Last device
+JSONPath(object, "$..Devices[(@.length-1)]");
+
+// Result
+{
+	"Type": "SPI",
+	"URL": "/mod-led-8x8-rgb",
+	"Found": 1
 }
 
 // Nested JSONPath expression as index
