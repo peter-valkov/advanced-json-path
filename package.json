@@ -1,0 +1,22 @@
+{
+	"name": "advanced-json-path",
+	"description": "Inspired by Stefan Goessner's JSONPath http://goessner.net/articles/JsonPath/ with some enhancements",
+	"keywords": [
+		"advanced-json-path",
+		"json",
+		"json-path",
+		"jsonpath"
+	],
+	"author": {
+		"name": "Peter Valkov",
+		"email": "peter@ms-consult.net"
+	},
+	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/peter-valkov/advanced-json-path"
+	},
+	"homepage": "https://github.com/peter-valkov/advanced-json-path",
+	"main": "./lib/advanced-json-path",
+	"private": false
+}
