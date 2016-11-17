@@ -65,9 +65,10 @@
 						var $this = $(e);
 						var timeout;
 						
-						var $json   = $('#json');
-						var $path   = $('#json-path');
-						var $result = $('#result');
+						var $json    = $('#json');
+						var $noMatch = $('#no-match');
+						var $path    = $('#json-path');
+						var $result  = $('#result');
 						
 						$this.bind(
 							'input',
@@ -84,7 +85,8 @@
 												JSON.stringify(
 													JSONPath(
 														JSON.parse($json.val()),
-														$path.val()
+														$path.val(),
+														JSON.parse($noMatch.val())
 													),
 													null,
 													4
@@ -120,6 +122,7 @@
 		div {
 			display: inline-block;
 			margin: 10px;
+			vertical-align: top;
 		}
 		
 		label {
@@ -129,6 +132,11 @@
 		textarea {
 			width: 600px;
 			height: 300px;
+		}
+		
+		textarea#no-match,
+		textarea#json-path {
+			height: 130px;
 		}
 		
 		textarea#result {
@@ -144,6 +152,9 @@
 	<div>
 		<label for="json-path">JSONPath Expression</label>
 		<textarea id="json-path" class="source"></textarea>
+		<br/>
+		<label for="no-match">No match</label>
+		<textarea id="no-match" class="json source">false</textarea>
 	</div>
 	<br/>
 	<div>
