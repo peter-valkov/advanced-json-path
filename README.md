@@ -19,7 +19,7 @@ var object = {
         Device: "MOD-TC-MK2",
         Status: "OK",
         Data: {
-            Temperature: 23.5
+            Temperature: 23.75
         },
         I2C_Address: "0x23"
     }
