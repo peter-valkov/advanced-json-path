@@ -73,7 +73,7 @@ Expression | Meaning
 **@** | Current Object
 **.** | Child
 **..** | Recursive children descent
-* | Any object/property
+**&ast;** | Any object/property
 **[ ]** | index or quoted child name
 **[start : end]** | slice operator
 **( )** | script expression
